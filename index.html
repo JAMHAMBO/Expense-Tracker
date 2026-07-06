@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Expense Tracker</h1>
+    </header>
+
+    <div class="container">
+
+        <!-- Add Expense -->
+
+        <div class="input-box">
+
+            <input type="text" id="expenseName" placeholder="Expense Name">
+
+            <input type="number" id="expenseAmount" placeholder="Amount">
+
+            <select id="category">
+                <option value="">Select Category</option>
+                <option>Food</option>
+                <option>Shopping</option>
+                <option>Transport</option>
+                <option>Bills</option>
+                <option>Entertainment</option>
+                <option>Health</option>
+                <option>Education</option>
+                <option>Other</option>
+            </select>
+
+            <input type="date" id="expenseDate">
+
+            <button id="addExpense">
+                Add Expense
+            </button>
+
+        </div>
+
+        <!-- Filter -->
+
+        <div class="filter-section">
+
+            <label>Filter :</label>
+
+            <select id="filterCategory">
+
+                <option value="All">All</option>
+                <option>Food</option>
+                <option>Shopping</option>
+                <option>Transport</option>
+                <option>Bills</option>
+                <option>Entertainment</option>
+                <option>Health</option>
+                <option>Education</option>
+                <option>Other</option>
+
+            </select>
+
+        </div>
+
+        <!-- Table -->
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Expense Name</th>
+                        <th>Amount</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="expenseTable">
+
+                    <!-- JS -->
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- Total -->
+
+        <div class="total">
+
+            Total :
+            <span id="totalExpense">₹0</span>
+
+        </div>
+
+    </div>
+
+    <!-- Edit Modal -->
+
+    <div class="modal" id="editModal">
+
+        <div class="modal-content">
+
+            <h2>Edit Expense</h2>
+
+            <input type="text" id="editName" placeholder="Expense Name">
+
+            <input type="number" id="editAmount" placeholder="Amount">
+
+            <select id="editCategory">
+
+                <option>Food</option>
+                <option>Shopping</option>
+                <option>Transport</option>
+                <option>Bills</option>
+                <option>Entertainment</option>
+                <option>Health</option>
+                <option>Education</option>
+                <option>Other</option>
+
+            </select>
+
+            <input type="date" id="editDate">
+
+            <div class="modal-buttons">
+
+                <button id="saveEdit" class="save">
+                    Save Changes
+                </button>
+
+                <button id="cancelEdit" class="cancel">
+                    Cancel
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+<script src="script.js"></script>
+
+</html>
