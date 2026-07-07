@@ -27,7 +27,6 @@ A simple Expense Tracker built using HTML, CSS, and JavaScript that helps users 
 
 https://jamhambo.github.io/Expense-Tracker/
 
-> Replace the above link with your actual GitHub Pages URL after deployment.
 
 ## How to Run
 
