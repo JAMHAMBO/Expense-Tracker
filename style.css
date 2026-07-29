@@ -182,7 +182,8 @@ tbody tr:hover {
     }
 
     .table-container {
-        overflow-x: auto;
+        /* overflow-x: auto; */
+        font-size:x-small;
     }
 
     .modal-content {
