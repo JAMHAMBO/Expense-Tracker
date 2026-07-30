@@ -13,17 +13,18 @@ const editCategory = document.querySelector("#editCategory");
 const editDate = document.querySelector("#editDate");
 const saveEdit = document.querySelector("#saveEdit");
 const cancelEdit = document.querySelector("#cancelEdit");
+const filterDate = document.querySelector("#filterdate");
 let total = 0;
 let expenses = [];
 let editingExpense = null;
 
 loadExpenses();
 
-function formatDate(dateString) {
-    const [year, month, day] = dateString.split("-");
+// function formatDate(dateString) {
+//     const [year, month, day] = dateString.split("-");
 
-    return `${day}-${month}-${year}`;
-}
+//     return `${day}-${month}-${year}`;
+// }
 
 function addExpenseTable(expense) {
     const row = document.createElement("tr");
@@ -40,7 +41,7 @@ function addExpenseTable(expense) {
     td1.textContent = expense.name;
     td2.textContent = `₹${expense.amount}`;
     td3.textContent = expense.category;
-    td4.textContent = formatDate(expense.date);
+    td4.textContent = (expense.date);
     editBtn.textContent = "Edit";
     deleteBtn.textContent = "Delete";
 
@@ -147,23 +148,38 @@ async function loadExpenses() {
     addTotal(expenses);
 }
 
-
-filterCategory.addEventListener("change", () => {
+function filterSelection() {
+    const selectedDate = filterDate.value;
     const selectedCategory = filterCategory.value;
 
-    if (selectedCategory === "All") {
-        displayExpenses(expenses);
-        addTotal(expenses);
-    }
-    else {
-        expenseTable.innerHTML = ""
+    const filteredExpenses = expenses.filter(expense => {
 
-        const filteredExpenses = expenses.filter((expense) => {
-            return expense.category === selectedCategory;
-        });
-        displayExpenses(filteredExpenses);
-        addTotal(filteredExpenses);
-    }
+        const categoryMatch =
+            selectedCategory === "All" ||
+            expense.category === selectedCategory;
+
+        const dateMatch =
+            selectedDate === "" ||
+            expense.date === selectedDate;
+
+        return categoryMatch && dateMatch;
+
+    });
+
+    displayExpenses(filteredExpenses);
+    addTotal(filteredExpenses);
+}
+
+
+filterCategory.addEventListener("change", () => {
+    
+    filterSelection();
+
+});
+
+filterDate.addEventListener("change", () => {
+
+    filterSelection();
 
 });
 

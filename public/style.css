@@ -61,14 +61,31 @@ header {
 
 .filter-section select {
     padding: 8px;
+    border: 1px solid #ccc;
     border-radius: 6px;
 }
 
+.filter-section input {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
 .table-container {
+    width: 100%;    
     background: white;
+    max-height: 420px;
     border-radius: 10px;
-    overflow: hidden;
     box-shadow: 0 0 15px rgba(0, 0, 0, .08);
+}
+
+tbody::-webkit-scrollbar {
+    width: 8px;
+}
+
+tbody::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
 }
 
 table {
@@ -79,6 +96,32 @@ table {
 thead {
     background: #0d6efd;
     color: white;
+}
+
+tbody {
+    display: block;
+    max-height: 370px;  
+    overflow-y: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead,
+tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    background: #1e6cf0;
+    color: white;
+    z-index: 100;
 }
 
 th,
@@ -183,14 +226,15 @@ tbody tr:hover {
 
     .table-container {
         overflow-x: auto;
-        font-size:x-small;
+        font-size: x-small;
     }
 
     .modal-content {
         width: 90%;
     }
 
-    .edit, .delete{
+    .edit,
+    .delete {
         font-size: small;
         padding: 5px;
         margin: 1px;
