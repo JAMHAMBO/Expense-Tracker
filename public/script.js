@@ -19,6 +19,12 @@ let editingExpense = null;
 
 loadExpenses();
 
+function formatDate(dateString) {
+    const [year, month, day] = dateString.split("-");
+
+    return `${day}-${month}-${year}`;
+}
+
 function addExpenseTable(expense) {
     const row = document.createElement("tr");
 
@@ -28,14 +34,13 @@ function addExpenseTable(expense) {
     const td4 = document.createElement("td");
     const td5 = document.createElement("td");
 
-    const editBtn = document.createElement("button")
-    const deleteBtn = document.createElement("button")
+    const editBtn = document.createElement("button");
+    const deleteBtn = document.createElement("button");
 
     td1.textContent = expense.name;
     td2.textContent = `₹${expense.amount}`;
     td3.textContent = expense.category;
-    td4.textContent = expense.date;
-
+    td4.textContent = formatDate(expense.date);
     editBtn.textContent = "Edit";
     deleteBtn.textContent = "Delete";
 
@@ -43,13 +48,15 @@ function addExpenseTable(expense) {
     deleteBtn.classList.add("action-btn", "delete");
 
     //DELETE ROW
-    deleteBtn.addEventListener("click", () => {
+    deleteBtn.addEventListener("click", async () => {
+
+        await fetch(`/api/expenses/${expense._id}`, {
+            method: "DELETE"
+        })
 
         expenses = expenses.filter((item) => {
-            return item.id !== expense.id;
+            return item._id !== expense._id;
         });
-
-        saveExpenses();
 
         displayExpenses(expenses);
         addTotal(expenses);
@@ -68,23 +75,39 @@ function addExpenseTable(expense) {
         editDate.value = expense.date;
     })
 
-
     row.append(td1, td2, td3, td4, td5);
     expenseTable.append(row);
 }
 
-saveEdit.addEventListener("click", () => {
-    editingExpense.name = editName.value;
-    editingExpense.amount = Number(editAmount.value);
-    editingExpense.category = editCategory.value;
-    editingExpense.date = editDate.value;
+saveEdit.addEventListener("click", async () => {
+    const updatedData = {
+        name: editName.value,
+        amount: Number(editAmount.value),
+        category: editCategory.value,
+        date: editDate.value
+    };
 
-    saveExpenses();
+    const response = await fetch(`/api/expenses/${editingExpense._id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updatedData)
+    });
+
+    const updatedExpense = await response.json();
+
+    expenses = expenses.map((item) => {
+        if (item._id === updatedExpense._id) {
+            return updatedExpense;
+        }
+        return item;
+    });
 
     displayExpenses(expenses);
     addTotal(expenses);
-    editingExpense = null;
 
+    editingExpense = null;
     editModal.style.display = "none";
 });
 
@@ -116,18 +139,12 @@ function addTotal(list) {
     totalExpense.textContent = `₹${total}`;
 }
 
-function saveExpenses() {
-    localStorage.setItem("expenses", JSON.stringify(expenses));
-}
+async function loadExpenses() {
+    const response = await fetch("api/expenses");
+    expenses = await response.json();
 
-function loadExpenses() {
-    const savedExpenses = localStorage.getItem("expenses");
-
-    if (savedExpenses != null) {
-        expenses = JSON.parse(savedExpenses);
-        displayExpenses(expenses);
-        addTotal(expenses);
-    }
+    displayExpenses(expenses);
+    addTotal(expenses);
 }
 
 
@@ -150,7 +167,14 @@ filterCategory.addEventListener("change", () => {
 
 });
 
-addExpense.addEventListener("click", () => {
+function clearValues() {
+    expenseName.value = "";
+    expenseAmount.value = "";
+    category.value = "";
+    expenseDate.value = "";
+}
+
+addExpense.addEventListener("click", async () => {
 
     if (expenseName.value === "" || expenseAmount.value === "" || category.value === "" || expenseDate.value === "") {
         alert("Please fill all fields");
@@ -158,21 +182,26 @@ addExpense.addEventListener("click", () => {
     }
 
     const expense = {
-        id: Date.now(),
         name: expenseName.value,
         amount: Number(expenseAmount.value),
         category: category.value,
         date: expenseDate.value
     };
-    expenses.push(expense)
 
-    saveExpenses();
+    const response = await fetch("/api/expenses", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(expense)
+    });
+
+    const savedExpense = await response.json();
+
+    expenses.push(savedExpense);
 
     displayExpenses(expenses);
     addTotal(expenses);
 
-    expenseName.value = "";
-    expenseAmount.value = "";
-    category.value = "";
-    expenseDate.value = "";
-})
+    clearValues();
+});
