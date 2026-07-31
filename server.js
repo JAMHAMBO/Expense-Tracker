@@ -1,8 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -86,14 +87,14 @@ app.put("/api/expenses/:id", async (req, res) => {
 });
 
 mongoose
-    .connect("mongodb://localhost:27017/expenseTracker")
+    .connect(process.env.MONGO_URI)
 
     .then(() => {
-
+        
         console.log("MongoDB is connected");
 
-        app.listen(port, () => {
-            console.log(`Example app listening on port ${port}`);
+        app.listen(PORT, () => {
+            console.log(`Example app listening on port ${PORT}`);
         });
     })
 

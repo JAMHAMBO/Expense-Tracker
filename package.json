@@ -1,8 +1,8 @@
 {
   "name": "project-17---expense-tracker",
   "version": "1.0.0",
-  "description": "A simple Expense Tracker built using HTML, CSS, and JavaScript that helps users manage daily expenses efficiently. The application allows users to add, edit, delete, filter, and store expenses using the browser's Local Storage, ensuring data persists even after refreshing the page.",
-  "main": "script.js",
+  "description": "A full-stack Expense Tracker built with HTML, CSS, JavaScript, Express.js, and MongoDB. Features include CRUD operations, category and date filtering, real-time total calculation, and persistent MongoDB storage.",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/JAMHAMBO/Expense-Tracker#readme",
   "dependencies": {
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "mongoose": "^9.8.1"
   }
