@@ -137,7 +137,7 @@ function addTotal(list) {
 
         total = total + expense.amount;
     });
-    totalExpense.textContent = `₹${total}`;
+    totalExpense.textContent = `₹${total.toFixed(2)}`;
 }
 
 async function loadExpenses() {
@@ -172,7 +172,7 @@ function filterSelection() {
 
 
 filterCategory.addEventListener("change", () => {
-    
+
     filterSelection();
 
 });
