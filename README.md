@@ -1,53 +1,56 @@
 # Expense Tracker
 
-A simple Expense Tracker built using HTML, CSS, and JavaScript that helps users manage daily expenses efficiently. The application allows users to add, edit, delete, filter, and store expenses using the browser's Local Storage, ensuring data persists even after refreshing the page.
+A full-stack expense tracking application built with Node.js, Express.js, MongoDB Atlas, and vanilla JavaScript. It allows users to manage expenses with CRUD operations, filtering, and real-time total calculation.
 
 ## Features
 
-- Add new expenses with name, amount, category, and date
-- Edit existing expenses using a modal
-- Delete expenses
-- Filter expenses by category
-- Displays total expenses dynamically
-- Data persistence using Local Storage
-- Input validation for required fields
-- Responsive and modern user interface
-- Automatic table updates after every operation
-- Dynamic creation of expense rows using JavaScript
+- Add, edit, and delete expenses
+- Filter by category and date
+- Automatic total expense calculation
+- Responsive interface
+- MongoDB Atlas integration
+- Deployed on Render
 
-## Technologies Used
+## Tech Stack
 
-- HTML5
-- CSS3
+- HTML
+- CSS
 - JavaScript
-- DOM Manipulation
-- Local Storage
+- Node.js
+- Express.js
+- MongoDB Atlas
+- Mongoose
 
 ## Live Demo
 
-https://jamhambo.github.io/Expense-Tracker/
+https://expense-tracker-hamza.onrender.com
 
+## Installation
 
-## How to Run
+```bash
+git clone https://github.com/JAMHAMBO/Expense-Tracker.git
+cd Expense-Tracker
+npm install
+```
 
-1. Clone the repository:
+Create a `.env` file:
 
-   ```bash
-   git clone https://github.com/JAMHAMBO/Expense-Tracker.git
-   ```
+```env
+MONGO_URI=your_mongodb_connection_string
+PORT=3000
+```
 
-2. Open the project folder.
+Run the application:
 
-3. Open `index.html` in your preferred web browser.
+```bash
+node server.js
+```
 
-## Future Improvements
+Visit:
 
-- Search expenses by name
-- Export expenses to CSV
-- Monthly expense statistics
-- Dark mode
-- Budget tracking with progress bar
-- Expense charts and analytics
+```
+http://localhost:3000
+```
 
 ## Author
 
